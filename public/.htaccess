@@ -1,0 +1,11 @@
+RewriteEngine On
+#Don't favicon!
+AddDefaultCharset Off
+<IfModule mod_rewrite.c>
+# активация модуля
+# если файл не существует или не является дирректорией
+    RewriteCond %{REQUEST_FILENAME} !^favicon\.ico
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^(.*)$ index.php [L,QSA]
+</IfModule>
