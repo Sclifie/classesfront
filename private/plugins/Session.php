@@ -22,7 +22,7 @@ class Session
         $this->current_sesion = $current_session;
     }
     static function regenerateSession(){
-        if(isset($this->current_session)){
+        if(isset(self::current_session)){
 
         }
     }

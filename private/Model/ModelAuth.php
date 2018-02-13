@@ -1,5 +1,7 @@
 <?php
-namespace MyNewProject\MySiteOnClasses;
+namespace MyNewProject\MySiteOnClasses\Model;
+
+use Web\Engine\DB;
 /**
  * Created by PhpStorm.
  * User: Sclif
@@ -7,20 +9,39 @@ namespace MyNewProject\MySiteOnClasses;
  * Time: 19:07
  */
 
-class ModelAuth extends Model
+class ModelAuth
 {
-    private $check_email;
-    private $check_login;
-    function __construct($file_name, $data)
+    private $db;
+    private $table;
+
+    const USER_ADDED = 'ok';
+    const USER_AUTH = 'ok';
+    const USER_NOT_FOUND = 'usr_not_found';
+    const USER_WRONG_PASSWORD = 'wrong_pw';
+    const USER_DUPLICATE_EMAIL = 'user_duplicate_email';
+    const USER_DUPLICATE_PHONE = 'user_duplicate_phone';
+
+    function __construct()
     {
-        parent::__construct($file_name, $data);
+        $this->db = DB::getInstance();
+        $this->table = 'users';
     }
 
-    function authUsers(){
-        var_dump('Авторизация');
+    function authUsers($data){
+        $sql = "SELECT * FROM $this->table WHERE user_email=:user_email";
+        $answer = $this->db->selectByParam($sql,['user_email'=>$data['userEmail']]);
+
+        if($answer){
+            if($data['userPassword'] == $answer['user_password']){
+                return self::USER_AUTH;
+            }
+            return self::USER_WRONG_PASSWORD;
+        }
+        return self::USER_NOT_FOUND;
     }
+
     function regUsers(){
-        var_dump('регистрация пользователя');
+
     }
     function checkUserReg(){
         var_dump('чек происходит...');

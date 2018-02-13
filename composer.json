@@ -2,8 +2,19 @@
     "name": "my-new-project/my-site-on-classes",
     "description": "desc",
     "type": "project",
+    "repositories": [
+        {
+            "type":"git",
+            "url":"https://github.com/Sclifie/engine"
+        }
+    ],
     "require": {
-        "twig/twig": "2.*"
+        "twig/twig": "2.*",
+        "symfony/http-foundation" : "4.*",
+        "symfony/routing" : "4.*",
+        "symfony/http-kernel" : "4.*",
+        "phpunit/phpunit": "^7",
+        "web/engine" : "dev-master"
     },
     "autoload": {
         "psr-4": {

@@ -68,24 +68,24 @@ function sendToServer() {
 
             console.log('hello AJAX');
     let otladka = document.getElementById('otladka');
-            userAuthData = 'reg_users_data=' + JSON.stringify(userAuthData);
+            userAuthData = 'auth_user_data=' + JSON.stringify(userAuthData);
             console.log('JSON reg_user_data \n',userAuthData);
             jQuery.ajax({
-                url: '/auth',
+                url:  '/auth-in',
                 type: 'post',
                 data: userAuthData,
                 success: function (response) {
                     otladka.innerHTML = response;
                     switch (response) {
                         case 'ok'    :
-                            window.location = 'cabinet_view.php';
+                            window.location = '/account';
                             authStatus.text('Добро пожаловать');
                             break;
                         case 'wrong_pw' :
                             authStatus.text('Не верный пароль');
                             console.log(response);
                             break;
-                        case 'no_usr':
+                        case 'usr_not_found':
                             authStatus.text('Пользователь не найден');
                             break;
                     }

@@ -1,0 +1,30 @@
+{
+  "db": {
+    "servername":"localhost",
+    "db_name":"classes",
+    "username":"root",
+    "password":""
+  },
+  "urls": {
+    "IndexController": {
+      "path":"/",
+      "controller":"\\MyNewProject\\MySiteOnClasses\\Controllers\\IndexController::index"
+    },
+    "AuthController": {
+      "path":"/auth",
+      "controller":"\\MyNewProject\\MySiteOnClasses\\Controllers\\AuthController::index"
+    },
+    "AccountController": {
+      "path":"/account",
+      "controller":"\\MyNewProject\\MySiteOnClasses\\Controllers\\AccountController::index"
+    },
+    "AccountControllerRegistration": {
+      "path":"/auth-new",
+      "controller":"\\MyNewProject\\MySiteOnClasses\\Controllers\\AuthController::regUser"
+    },
+    "AccountControllerAuthentication": {
+      "path":"/auth-in",
+      "controller":"\\MyNewProject\\MySiteOnClasses\\Controllers\\AuthController::authUser"
+    }
+  }
+}

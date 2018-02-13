@@ -1,31 +1,35 @@
 <?php
-namespace MyNewProject\MySiteOnClasses\Controllers;
+//namespace MyNewProject\MySiteOnClasses\Controllers;
 
+use Web\Engine\DB;
 use MyNewProject\MySiteOnClasses\Model;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use MyNewProject\MySiteOnClasses\Session as Session;
 
 class Controller
 {
-    public $page_view,$page_title,$page_description,$template_source;
+    public $data = [
+        'title' => 404
+    ];
+    public $page_view;
+    public $template_source;
+    public $page_settings = [];
 
-    protected function __construct(
-                                   $page_title = 'Страница не найдена',  // Будет имитировать 404
-                                   $page_description = 'Страница не найдена',
-                                   $page_view = '../View/404.php',
-                                   $template_source = '../private/View/template.php'
-                                    )
-
+    public function __construct($page_view,$template_source,$data,$page_settings=['activate_all' => 'Y'])
                                 {
-                                    $this->page_title = $page_title;
-                                    $this->page_description = $page_description;
                                     $this->page_view = $page_view;
                                     $this->template_source = $template_source;
-                                    $page_data_static = [];
+                                    $this->data = [
+                                        'title' => 404
+                                    ];
+                                    $this->$page_settings = $page_settings;
                                 }
     protected function getSetDataFrom($file_name){
 
     }
 
-    protected function pushDataToView(){
+    protected function generateDataToView(){
         $data_array_for_view = [
             "page_title" => $this->page_title,
             "page_description" => $this->page_description,
@@ -46,19 +50,21 @@ class Controller
 
     function __destruct()
     {
-        // обнуление контроллера по завершении использования
-        // TODO: Implement __destruct() method.
+        unset($data);
     }
 
     public function index()
     {
-        $page_data = self::pushDataToView();
-        var_dump($page_data);
+        $page_data = self::generateDataToView();
         extract($page_data);
-        var_dump(123,$page_title,321,$page_description);
         $template = self::selectTemplate();
         include $template;
         $page_view = self::selectView();
         include $page_view;
+        return new Response('');
+    }
+
+    public function postAjax($data){
+        return new Response($data = ['hello' => 'hello']);
     }
 }

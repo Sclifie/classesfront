@@ -6,7 +6,9 @@
  * Time: 20:09
  */
 
-namespace MyNewProject\MySiteOnClasses;
+namespace MyNewProject\MySiteOnClasses\Model;
+
+
 
 
 class Model

@@ -80,7 +80,7 @@ function submitToServer() {
 
         jQuery.ajax({
 
-            url: 'Model/user_registration.php',
+            url: '/auth-new',
             type: 'post',
             data: regUsersData,
             success: function (response) {

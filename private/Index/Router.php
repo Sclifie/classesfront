@@ -1,5 +1,4 @@
 <?php
-namespace MyNewProject;
 $pages_data = [
     'new_page' =>
         [
