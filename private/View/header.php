@@ -19,6 +19,10 @@
         <link rel="shortcut icon" href="/assets/images/favicon.ico">
         <link rel="stylesheet" href="/assets/css/font-awesome.min.css">
 	</head>
-
 <body>
 
+<!--<script type="text/javascript">-->
+<!---->
+<!--    VK.init({apiId: 6372731,true,false});-->
+<!--    VK.UI.button('#vk_in');-->
+<!--</script>-->

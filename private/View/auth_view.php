@@ -11,7 +11,9 @@
                     <div class="social-auth-buttons">
                         <div class="row">
                             <div class="col-md-6">
-                                <button class="btn-block btn-lg btn btn-vk"><i class="fa fa-vk"></i>Войти через Вконтакте</button>
+                                <a href="<?php echo $vk_link ?>" target="_blank">
+                                <button class="btn-block btn-lg btn btn-vk" id="vk_auth"><i class="fa fa-vk"></i>Войти через Вконтакте</button>
+                                </a>
                             </div>
                         </div>
                     </div>

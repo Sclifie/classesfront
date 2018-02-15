@@ -25,6 +25,10 @@
     "AccountControllerAuthentication": {
       "path":"/auth-in",
       "controller":"\\MyNewProject\\MySiteOnClasses\\Controllers\\AuthController::authUser"
+    },
+    "AccountControllerAuthFromVK":{
+      "path":"/loginvk",
+      "controller":"\\MyNewProject\\MySiteOnClasses\\Controllers\\AuthController::authFromVK"
     }
   }
 }

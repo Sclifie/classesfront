@@ -14,6 +14,7 @@
     <script src="/assets/js/lib/bootstrap.js"></script>
     <script src="/assets/js/lib/jquery.validate.js"></script>
     <script src="/assets/js/myscripts/auth_users.js"></script>
+    <script src="/assets/js/myscripts/reg_users.js"></script>
     <!-- Favicon -->
 
 </head>

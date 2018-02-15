@@ -84,17 +84,17 @@ function submitToServer() {
             type: 'post',
             data: regUsersData,
             success: function (response) {
+                otladka.innerHTML = response;
                     switch (response){
-                        case 'ok'        :
+                        case 'ok_add'        :
                             userRegisterStatus.addClass('auth-status');
                             userRegisterStatus.text('Регистрация успешно завершена. Авторизуйтесь');
                             break;
-                        case 'bad_email' :
-                            window.localStorage
+                        case 'user_duplicate_email' :
                             userRegisterStatus.addClass('statuserr');
                             userRegisterStatus.text('Email уже зарегистрирован');
                             break;
-                        case 'same_login':
+                        case 'user_duplicate_login':
                             userRegisterStatus.addClass('statuserr');
                             userRegisterStatus.text('Логин уже используется');
                             break;
@@ -102,6 +102,9 @@ function submitToServer() {
                             userRegisterStatus.addClass('statuserr');
                             userRegisterStatus.text('Телефон уже зарегистрирован');
                             break;
+                        case 'error':
+                            userRegisterStatus.addClass('statuserr');
+                            userRegisterStatus.text('Не известная ошибка, попробуйте позже');
                     }
             },
             error:function (error) {

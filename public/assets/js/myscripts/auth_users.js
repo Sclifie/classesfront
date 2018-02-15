@@ -1,5 +1,5 @@
+
 jQuery(document).ready(function () {
-    console.log('hello');
     'use strict';
     let self = this;
     let tryCount = 0;
@@ -59,17 +59,17 @@ function sendToServer() {
 
             let userAuthEmail = jQuery('#auth_user_email');
             let userAuthPassword = jQuery('#auth_user_pw');
-            let authStatus = jQuery('#auth_status')
+            let authStatus = jQuery('#auth_status');
 
             let userAuthData = {
                 userEmail: userAuthEmail.val(),
                 userPassword: userAuthPassword.val()
             };
 
-            console.log('hello AJAX');
+
     let otladka = document.getElementById('otladka');
             userAuthData = 'auth_user_data=' + JSON.stringify(userAuthData);
-            console.log('JSON reg_user_data \n',userAuthData);
+
             jQuery.ajax({
                 url:  '/auth-in',
                 type: 'post',
@@ -77,7 +77,7 @@ function sendToServer() {
                 success: function (response) {
                     otladka.innerHTML = response;
                     switch (response) {
-                        case 'ok'    :
+                        case 'ok_auth'    :
                             window.location = '/account';
                             authStatus.text('Добро пожаловать');
                             break;
