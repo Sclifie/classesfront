@@ -8,8 +8,7 @@
 
 namespace MyNewProject\MySiteOnClasses\Controllers;
 
-//use Symfony\Component\HttpFoundation\Request;
-//use Symfony\Component\HttpFoundation\Response;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Web\Engine\Controller as AppController;
@@ -46,19 +45,53 @@ class AuthController extends AppController
     private $tmp_obj;
     private $model; //TODO:plugin/VKauth
     function __construct(){
-        $this->data['vk_link'] = "https://oauth.vk.com/authorize?client_id=". self::CLIENT_ID . "&display=page&redirect_uri=" . self::REDIRECT_URI . "&scope=" . $this->scope_list['email'] . "&response_type=code";
+        $this->data['vk_link'] = "https://oauth.vk.com/authorize?client_id=". self::CLIENT_ID . "&display=page&redirect_uri=" . self::REDIRECT_URI . "&scope=" . $this->scope_list['email'] . "&response_type=code&v=5.52";
         $this->model = new Model();
     }
 
     function index()
     {
-        var_dump($this->data);
         $page = $this->generateResponse($this->page_view,$this->template_source,$this->data);
         return $page;
     }
     function authFromVk(){
-        $hello = new Request()
-        var_dump()
+
+        if(!$_GET['code']){
+            exit('code error');
+        }
+//        stream_context_create($contextOptions);
+//        $hello = file_get_contents("https//oauth.vk.com/getInfo?client_id=". self::CLIENT_ID);
+//        var_dump($hello);
+//        try{
+
+//        } catch (\Exception $e){ echo "Код исключения " . $e->getCode();
+//        }
+        $options = array(
+            "http"=>array(
+                "header"=>"User-Agent: Mozilla/5.0 (iPad; U; CPU OS 3_2 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Version/4.0.4 Mobile/7B334b Safari/531.21.102011-10-16 20:23:10\r\n" // i.e. An iPad
+            )
+        );
+        $contextOptions = stream_context_create($options);
+        $url = 'https://oauth.vk.com/access_token?client_id='. self::CLIENT_ID . '&redirect_uri=' . self::REDIRECT_URI . '&client_secret=' . self::CLIENT_SECRET . '&code=' . $_GET['code'] . '&v=5.52';
+        var_dump($url);
+            $token = json_decode(file_get_contents($url, true,$contextOptions),true);
+            var_dump($token);
+//        if(!isset($token)){
+//            exit('miss token');
+//        }
+            $url = 'https://api.vk.com/method/users.get?user_id=' . $token['user_id'] . '&access_token='. $token['access_token'] . '&fields=id,first_name,last_name,deactivated,hidden,domain,exports,photo_400_orig';
+//        try{
+            $data = json_decode(file_get_contents($url, true, $contextOptions),true);
+            var_dump($data);
+            $hello = $response->get->all();
+            var_dump($hello);
+        return  $response;
+//        } catch (\Exception $e){
+//            echo "Код исключения " . $e->getCode();
+//        }
+
+
+
     }
     function authUser(){ //TODO:session add
         $post = $_POST['auth_user_data'];
