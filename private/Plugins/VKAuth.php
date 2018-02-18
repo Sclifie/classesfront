@@ -6,7 +6,7 @@
  * Time: 15:55
  */
 
-namespace MyNewProject\MySiteOnClasses\plugins;
+namespace MyNewProject\MySiteOnClasses\Plugins;
 
 use MyNewProject\MySiteOnClasses\Controllers\AccountController as Auth;
 

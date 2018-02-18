@@ -8,11 +8,12 @@
 
 namespace MyNewProject\MySiteOnClasses\Controllers;
 
-
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Web\Engine\Controller as AppController;
 use MyNewProject\MySiteOnClasses\Model\ModelAuth as Model;
+use MyNewProject\MySiteOnClasses\Plugins\DataValidator as Validate;
+
 
 class AuthController extends AppController
 {
@@ -42,7 +43,6 @@ class AuthController extends AppController
         'title' => 'Авторизация',
         'vk_link' => null
     ];
-    private $tmp_obj;
     private $model; //TODO:plugin/VKauth
     function __construct(){
         $this->data['vk_link'] = "https://oauth.vk.com/authorize?client_id=". self::CLIENT_ID . "&display=page&redirect_uri=" . self::REDIRECT_URI . "&scope=" . $this->scope_list['email'] . "&response_type=code&v=5.52";
@@ -54,61 +54,109 @@ class AuthController extends AppController
         $page = $this->generateResponse($this->page_view,$this->template_source,$this->data);
         return $page;
     }
-    function authFromVk(){
+    function authFromVk(){ //TODO:model->getSettings
+        $this->scope_list =
+            $this->scope_list['notify'] +
+            $this->scope_list['messages'] +
+            $this->scope_list['email'];
+
+        // 'exports' можно добавить //
+        //'quotes', //любимые цитаты заюзаем в ЛК проблема с получением - не понятно сколько получишь символов 2500 вроде максимум
+        $fields_to_get =
+            [   'id', //id вк
+                'first_name', //имя
+                'last_name', //Фамилия
+                'deactivated', //проверка на Деактиватед
+                'hidden', //Проверка на скрытность без токена вернёт 1
+                'domain', // то что в ссылке если есть
+                'photo_400_orig', //400х400 фото если https://vk.com/images/camera_400.png вставлять DEFAULT
+                'nickname', //отчество или ник
+                'trending', //если есть - в приоритет либо не вернёт ничего либо 1
+                'verified']; //надо подумать пропускать такого или нет =) ps пропускать т.к. чёт смотрю 3 из 3 акков не подтверждены
+
+        $fields_to_get = implode(',',$fields_to_get);
 
         if(!$_GET['code']){
             exit('code error');
         }
-//        stream_context_create($contextOptions);
-//        $hello = file_get_contents("https//oauth.vk.com/getInfo?client_id=". self::CLIENT_ID);
-//        var_dump($hello);
-//        try{
 
-//        } catch (\Exception $e){ echo "Код исключения " . $e->getCode();
-//        }
+        // Опция контекста
+
         $options = array(
             "http"=>array(
                 "header"=>"User-Agent: Mozilla/5.0 (iPad; U; CPU OS 3_2 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Version/4.0.4 Mobile/7B334b Safari/531.21.102011-10-16 20:23:10\r\n" // i.e. An iPad
             )
         );
+
         $contextOptions = stream_context_create($options);
+
         $url = 'https://oauth.vk.com/access_token?client_id='. self::CLIENT_ID . '&redirect_uri=' . self::REDIRECT_URI . '&client_secret=' . self::CLIENT_SECRET . '&code=' . $_GET['code'] . '&v=5.52';
-        var_dump($url);
+
+        try{
             $token = json_decode(file_get_contents($url, true,$contextOptions),true);
-            var_dump($token);
-//        if(!isset($token)){
-//            exit('miss token');
-//        }
-            $url = 'https://api.vk.com/method/users.get?user_id=' . $token['user_id'] . '&access_token='. $token['access_token'] . '&fields=id,first_name,last_name,deactivated,hidden,domain,exports,photo_400_orig';
-//        try{
+        } catch (\Exception $e){
+            exit("Код исключения" . $e->getCode());
+        }
+
+        $time = date('U');
+
+        $user_data = [
+            'access_token' => (string) $token['access_token'], //токен
+            'user_email' => (string) $token['email'], //мыло из вк
+            'vk_token_expired' => (int) $token['expires_in'] + $time - 600 // время когда закончится токен для нашего сервера
+        ];
+
+        if(!isset($token)){
+            exit('miss token');
+        }
+
+        $url = 'https://api.vk.com/method/users.get?user_id=' . $token['user_id'] . '&access_token='. $token['access_token'] . '&fields=' . $fields_to_get;
+
+        try{
             $data = json_decode(file_get_contents($url, true, $contextOptions),true);
-            var_dump($data);
-            $hello = $response->get->all();
-            var_dump($hello);
-        return  $response;
-//        } catch (\Exception $e){
-//            echo "Код исключения " . $e->getCode();
-//        }
-
-
-
+        } catch (\Exception $e){
+            exit("Код исключения" . $e->getCode());
+        }
+        $response = $data['response'][0]; //TODO: нужно-ли удалять дата респонс
+        $response['domain_n'] = $response['domain'];
+        unset($response['domain']);
+        if($response['nickname'] == ''){
+            if ($response['domain_n'] == ''){
+                $response['nickname'] = $response['first_name'] . $response['last_name'];
+                if(preg_match('(([а-я][А-Я]))', $response['nickname'])){
+                    $response['nickname'] = Validate::rus_to_translit($response['nickname']);
+                }
+                $response['domain_n'] = $response['nickname'];
+            }
+            $response['nickname'] = $response['domain_n'];
+        }
+        //TODO: Чек на присутствие E-mail и Никнейма === Логин
+        $data = array_merge($user_data,$response);
+        var_dump($data);
+        $action = $this->model->authFromApi($data);
+        if ($action === 'error'){
+            var_dump('ERROR');
+            return new Response('ERROR <a href="auth">Назад</a>',200);
+        } else {
+            header('Location : account/');
+        }
+        return Response::create('Что-то пошло не так... <a href="/">На Главную</a>', 200);
     }
+
     function authUser(){ //TODO:session add
         $post = $_POST['auth_user_data'];
-        $post = $this->filterArr($post);
+        $post = Validate::filterArr($post);
         if($post !== false){
             $bdanswer = $this->model->authUsers($post);
             $response = $this->generateAjaxResponse($bdanswer);
             return $response;
         }
         return 'php inject';
-//        $new_user = new Model($this->users_file,$user_data);
-//        $new_user->filterInputData();
-//        $new_user->authUsers();
+
     }
     function regUser(){
             $post = $_POST['reg_users_data'];
-            $post = $this->filterArr($post);
+            $post = Validate::filterArr($post);
             if ($post !== false){
                 $bdanswer = $this->model->regUsers($post);
                 $response = $this->generateAjaxResponse($bdanswer);
@@ -117,24 +165,4 @@ class AuthController extends AppController
             return 'php inject';
     }
 
-    /**
-     * @param $post your !JSON! array for validate
-     * @return bool|mixed return false if feel php code else return $post - associated array
-     */
-    function filterArr($post) //TODO: plugins/DataValidator filterArr(method)
-    {
-        $post = (json_decode($post, true, 5, 0));
-        $post = str_replace(' ', '', $post);
-
-        foreach ($post as &$value) {
-            $value = trim($value, " \t\n\r\0\x0B");
-            $value = strip_tags($value);
-            $value = htmlspecialchars($value);
-            if (strripos($value, '<?', 0) !== false) {
-                return false;
-            }
-            unset($value);
-        }
-        return $post;
-    }
 }
