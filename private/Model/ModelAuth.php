@@ -79,21 +79,8 @@ class ModelAuth
     }
     function authFromApi($data){
         //чек мыла или телефона
-        extract($data);
-        $sql =
-            "INSERT INTO 'users_vk_info'
-            ('access_token', 'vk_token_expired', 'uid', 'user_email', 'domain', 'nick', 'photo_vk', 'verified', 'first_name', 'last_name')
-            VALUES 
-            ('access_token'=:$access_token,
-             'vk_token_expired'=:$vk_token_expired,
-             'uid'=:$uid,
-             'user_email'=:$user_email,
-             'domain'=:$domain_n,
-             'nick'=:$nickname,
-             'photo_vk'=:$photo_400_orig,
-             'verified'=:$verified,
-             'first_name'=:$first_name,
-             'last_name'=:$last_name)";
+        var_dump($data);
+        $sql = "INSERT INTO users_vk_info (access_token, vk_token_expired, uid, user_email, domain, nick, photo_vk, verified, first_name, last_name) VALUES (:access_token,:vk_token_expired,:uid,:user_email,:domain_n,:nickname,:photo_400_orig,:verified,:first_name,:last_name)";
         $answer = $this->db->insertIntoTable($sql,$data);
         var_dump($answer);
         if ($answer === false){

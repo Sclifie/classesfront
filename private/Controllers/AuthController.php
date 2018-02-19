@@ -10,6 +10,7 @@ namespace MyNewProject\MySiteOnClasses\Controllers;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Web\Engine\Controller as AppController;
 use MyNewProject\MySiteOnClasses\Model\ModelAuth as Model;
 use MyNewProject\MySiteOnClasses\Plugins\DataValidator as Validate;
@@ -62,7 +63,7 @@ class AuthController extends AppController
 
         // 'exports' можно добавить //
         //'quotes', //любимые цитаты заюзаем в ЛК проблема с получением - не понятно сколько получишь символов 2500 вроде максимум
-        $fields_to_get =
+        $fields_to_get = //scopelist
             [   'id', //id вк
                 'first_name', //имя
                 'last_name', //Фамилия
@@ -132,13 +133,12 @@ class AuthController extends AppController
         }
         //TODO: Чек на присутствие E-mail и Никнейма === Логин
         $data = array_merge($user_data,$response);
-        var_dump($data);
+
         $action = $this->model->authFromApi($data);
         if ($action === 'error'){
-            var_dump('ERROR');
-            return new Response('ERROR <a href="auth">Назад</a>',200);
+            return new Response('ERROR'); //Тут формочку на js ретурнить будем
         } else {
-            header('Location : account/');
+            return new RedirectResponse('/account',302);
         }
         return Response::create('Что-то пошло не так... <a href="/">На Главную</a>', 200);
     }
