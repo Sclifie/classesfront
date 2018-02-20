@@ -84,7 +84,7 @@ function submitToServer() {
             type: 'post',
             data: regUsersData,
             success: function (response) {
-                otladka.innerHTML = response;
+                // otladka.innerHTML = response;
                     switch (response){
                         case 'ok_add'        :
                             userRegisterStatus.addClass('auth-status');

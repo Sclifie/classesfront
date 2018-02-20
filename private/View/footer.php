@@ -6,62 +6,27 @@
             <div class="col-xs-12  col-sm-4 no-margin-left">
                 <!-- ============================================================= FEATURED PRODUCTS ============================================================= -->
                 <div class="widget">
-                    <h2>Featured products</h2>
+                    <h2>Последние новости</h2>
                     <div class="body">
                         <ul>
+                            <? foreach ($last_news as $val => $text): ?>
                             <li>
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-9 no-margin">
-                                        <a href="single-product"><? echo 'Товар 1'?></a>
+                                        <a href="#"><? echo $text['cat_parent_name']?></a>
                                         <div class="price">
-                                            <div class="price-prev"><? echo '2000'?></div>
-                                            <div class="price-current"><? echo 'sale 2000'?></div>
+                                            <div class="price-current"><? echo $text['post_text']?></div>
                                         </div>
                                     </div>
 
                                     <div class="col-xs-12 col-sm-3 no-margin">
                                         <a href="#" class="thumb-holder">
-                                            <img alt="" src="assets/images/blank.gif"  /> <!-- php img src -->
+                                            <img alt="" src="<? echo $text['post_img_min']?>"/> <!-- php img src -->
                                         </a>
                                     </div>
                                 </div>
                             </li>
-
-                            <li>
-                                <div class="row">
-                                    <div class="col-xs-12 col-sm-9 no-margin">
-                                        <a href="single-product"><? echo 'Товар 2'?></a>
-                                        <div class="price">
-                                            <div class="price-prev"><? echo '2000'?></div>
-                                            <div class="price-current"><? echo 'sale 2000'?></div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-xs-12 col-sm-3 no-margin">
-                                        <a href="#" class="thumb-holder">
-                                            <img alt="" src="assets/images/blank.gif"  /> <!-- php img src -->
-                                        </a>
-                                    </div>
-                                </div>
-                            </li>
-
-                            <li>
-                                <div class="row">
-                                    <div class="col-xs-12 col-sm-9 no-margin">
-                                        <a href="single-product"><? echo 'Товар 3'?></a>
-                                        <div class="price">
-                                            <div class="price-prev"><? echo '2000'?></div>
-                                            <div class="price-current"><? echo 'sale 2000'?></div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-xs-12 col-sm-3 no-margin">
-                                        <a href="#" class="thumb-holder">
-                                            <img alt="" src="assets/images/blank.gif"  /> <!-- php img src -->
-                                        </a>
-                                    </div>
-                                </div>
-                            </li>
+                            <?endforeach;?>
                         </ul>
                     </div><!-- /.body -->
                 </div> <!-- /.widget -->

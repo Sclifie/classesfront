@@ -50,8 +50,10 @@ class AuthController extends AppController
         $this->model = new Model();
     }
 
-    function index()
+    function index(Request $request)
     {
+        $hi = $request->getUserInfo();
+        var_dump($hi);
         $page = $this->generateResponse($this->page_view,$this->template_source,$this->data);
         return $page;
     }
@@ -143,9 +145,10 @@ class AuthController extends AppController
         return Response::create('Что-то пошло не так... <a href="/">На Главную</a>', 200);
     }
 
-    function authUser(){ //TODO:session add
-        $post = $_POST['auth_user_data'];
+    function authUser(Request $request){ //TODO:session add
+        $post = $request->get('auth_user_data');
         $post = Validate::filterArr($post);
+        var_dump($post);
         if($post !== false){
             $bdanswer = $this->model->authUsers($post);
             $response = $this->generateAjaxResponse($bdanswer);
@@ -154,9 +157,10 @@ class AuthController extends AppController
         return 'php inject';
 
     }
-    function regUser(){
-            $post = $_POST['reg_users_data'];
+    function regUser(Request $request){
+            $post = $request->get('reg_users_data');
             $post = Validate::filterArr($post);
+            var_dump($post);
             if ($post !== false){
                 $bdanswer = $this->model->regUsers($post);
                 $response = $this->generateAjaxResponse($bdanswer);

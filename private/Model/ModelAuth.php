@@ -46,7 +46,7 @@ class ModelAuth
                 $up = $answer['user_email'];
                 $sqlup = "UPDATE $this->table SET 'user_last_log'=DEFAULT WHERE user_email=:$up";
                 $update = $this->db->update($sqlup);
-                if ($update !== true){return self::ERROR;}
+                if ($update !== true){return self::ERROR;} //TODO:MAKEUPDATE + validate user reg method
                 return self::USER_AUTH;
             }
             return self::USER_WRONG_PASSWORD;

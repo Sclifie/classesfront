@@ -75,11 +75,12 @@ function sendToServer() {
                 type: 'post',
                 data: userAuthData,
                 success: function (response) {
-                    otladka.innerHTML = response;
+                    // otladka.innerHTML = response;
                     switch (response) {
                         case 'ok_auth'    :
                             window.location = '/account';
                             authStatus.text('Добро пожаловать');
+                            window.location = ('/account');
                             break;
                         case 'wrong_pw' :
                             authStatus.text('Не верный пароль');

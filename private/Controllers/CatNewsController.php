@@ -14,19 +14,29 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Web\Engine\Controller as AppController;
 use MyNewProject\MySiteOnClasses\Model\ModelAuth as Model;
 use MyNewProject\MySiteOnClasses\Plugins\DataValidator as Validate;
+use MyNewProject\MySiteOnClasses\Model\ModelPost;
 
 class CatNewsController
 {
-    private $template;
-    private $view;
+    private $template_source = 'template.php';
+    private $page_view = 'auth_view.php';
     private $data;
     private $model;
-    private $get;
+    private $params;
 
-    function __construct()
+    function __construct($params)
     {
-        $this->get =
+        $this->params = $params;
+        $this->model = new ModelPost();
+        $this->data = null; //получить всё или по гету
     }
 
-    function
+    function index(){
+
+    }
+
+    public function getNews(){
+        $news =  $this->model->getNews($this->params);
+        return $news;
+    }
 }

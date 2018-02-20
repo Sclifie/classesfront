@@ -56,7 +56,7 @@ class DataValidator
         // переводим в транслит
         $str = self::rus_to_translit($str);
         // в нижний регистр
-        // $str = strtolower($str);
+        $str = strtolower($str);
         // заменям все ненужное нам на ""
         $str = preg_replace('~[^-a-z0-9_]+~u', '', $str);
         // удаляем начальные и конечные '-'
@@ -77,7 +77,7 @@ class DataValidator
         $post = str_replace(' ', '', $post);
         foreach ($post as &$value) {
             $value = trim($value, " \t\n\r\0\x0B");
-            $value = preg_replace('~[^-0-9_]+~u', '',$value);
+//            $value = preg_replace('~[^.-A-Za-z0-9_]+~u', '',$value);
             $value = strip_tags($value);
             $value = htmlspecialchars($value);
             if (strripos($value, '<?', 0) !== false) {
