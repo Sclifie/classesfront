@@ -5,7 +5,7 @@
             <div class="account-image">
 
             </div>
-            <ul class="account-nav-main col-xs-3">
+            <ul class="account-nav-main col-xs-3" id="account-switchers">
                 <li><img class="img-thumbnail" src="/users_data/users_photo/default.png"></li>
                 <li class="account-nav"><i class="fa fa-user" style="padding-right: 5px"></i><p class="acc-list">Мой Аккаунт</p><p class="account-notification"><i class="fa fa-exclamation" aria-hidden="true"></i></p></li>
                 <li class="account-nav"><i class="fa fa-comment-o" aria-hidden="true"></i><p class="acc-list">Мои Сообщения</p><p class="account-message-count">3</p></li>
@@ -41,7 +41,43 @@
                             </form>
                         </div>
                     </div>
-                <div class="user-orders col-xs-9">Мои Заказы</div>
+                <!-- NEWS  -->
+                <div class="user-orders col-xs-9" style="display: none">Новости
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">id</th>
+                                <th scope="col">Название</th>
+                                <th scope="col">Категоря</th>
+                                <th scope="col">Текст</th>
+                                <th scope="col">Действие</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>Mark</td>
+                                <td>Otto</td>
+                                <td>@mdo</td>
+                                <td>@mdo</td>
+                            </tr>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td>Jacob</td>
+                            <td>Thornton</td>
+                            <td>@fat</td>
+                            <td>@mdo</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">3</th>
+                            <td>Larry</td>
+                            <td>the Bird</td>
+                            <td>@twitter</td>
+                            <td>@mdo</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
                 <div class="user-likes col-xs-9">Мне понравилось</div>
             </div>
         </div>

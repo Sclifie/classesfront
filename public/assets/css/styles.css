@@ -86,3 +86,13 @@ label.error{
     margin-top: 25px;
     margin-bottom: 25px;
 }
+
+.account-main-info {
+
+}
+.account-users-info{
+    display: none;
+}
+.account-news-info{
+    display: none;
+}

@@ -29,6 +29,18 @@
     "AccountControllerAuthFromVK":{
       "path":"/loginvk",
       "controller":"\\MyNewProject\\MySiteOnClasses\\Controllers\\AuthController::authFromVK"
+    },
+    "ModeratorCoontroller":{
+      "path":"/moderator-account",
+      "controller":"\\MyNewProject\\MySiteOnClasses\\Controllers\\ManagerAccountController::index"
+    },
+    "ModeratorGetNews":{
+      "path":"/moderator-account/get/news",
+      "controller":"\\MyNewProject\\MySiteOnClasses\\Controllers\\ManagerAccountController::getNews"
+    },
+    "ModeratorGetUsers":{
+      "path":"/moderator-account/get/users",
+      "controller":"\\MyNewProject\\MySiteOnClasses\\Controllers\\ManagerAccountController::getUsers"
     }
   }
 }

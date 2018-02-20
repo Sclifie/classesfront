@@ -16,6 +16,7 @@
     <script src="/assets/js/myscripts/auth_users.js"></script>
     <script src="/assets/js/myscripts/reg_users.js"></script>
     <script src="/assets/js/myscripts/vkauth.js"></script>
+    <script src="/assets/js/myscripts/account_tabs.js"></script>
     <!-- Favicon -->
 
 </head>
