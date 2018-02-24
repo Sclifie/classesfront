@@ -1,18 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
     {% spaceless %}
 
     {% block head %}
-    <link rel="stylesheet" href="style.css" />
-    {#TODO://pack all css and js in 1 file#}
-    <script src="/assets/js/lib/jquery-3.3.1.js" ></script>
-    <script src="/assets/js/lib/jquery-3.3.1.js" ></script>
-    <script src="/assets/js/lib/bootstrap.js"></script>
-    <script src="/assets/js/dist/jquery.validate.min.js"></script>
-    <script src="/assets/js/auth_users.js"></script>
-    <script src="/assets/js/reg_users.js"></script>
-    <script src="/assets/js/myscripts/account_tabs.js"></script>
+    <html>
+    <head>
+        <!-- Meta -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+        <meta name="description" content="{{ page_description }}" >
+        <title>{{ title }}</title>
+        <link rel="stylesheet" href="/assets/css/styles.css">
+        <!-- Fonts -->
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800' rel='stylesheet' type='text/css'>
+        <!-- Scripts -->
+        {#<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>#}
+        <script src="/assets/js/lib/jquery-3.3.1.js" ></script>
+        <script src="/assets/js/lib/bootstrap.js"></script>
+        <script src="/assets/js/lib/jquery.validate.js"></script>
+        <script src="/assets/js/myscripts/auth_users.js"></script>
+        <script src="/assets/js/myscripts/reg_users.js"></script>
+        <script src="/assets/js/myscripts/vkauth.js"></script>
+        <script src="/assets/js/myscripts/account_tabs.js"></script>
+        <script src="/assets/js/myscripts/filedownload.js"></script>
     <title>{% block title %}{% endblock %} - Мой Милый сайт</title>
 </head>
 <body>

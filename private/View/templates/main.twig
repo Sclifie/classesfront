@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+    {% block head %}
+    <html>
+    <head>
+        {#<!-- Meta -->#}
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+        <meta name="description" content="{{ page_description }}" >
+        <title>{{ title }}</title>
+        {#{% spaceless %}#}
+        <link rel="stylesheet" href="/assets/css/styles.css">
+        {#<!-- Fonts -->#}
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800' rel='stylesheet' type='text/css'>
+        {#<!-- Scripts -->#}
+        {#<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>#}
+        <script src="/assets/js/lib/jquery-3.3.1.js" ></script>
+        <script src="/assets/js/lib/bootstrap.js"></script>
+        <script src="/assets/js/lib/jquery.validate.js"></script>
+        <script src="/assets/js/myscripts/auth_users.js"></script>
+        <script src="/assets/js/myscripts/reg_users.js"></script>
+        <script src="/assets/js/myscripts/vkauth.js"></script>
+        <script src="/assets/js/myscripts/account_tabs.js"></script>
+        <script src="/assets/js/myscripts/filedownload.js"></script>
+        {#{% endspaceless %}#}
+    <title>{% block title %}{% endblock %} - Мой Милый сайт</title>
+</head>
+<body>
+    {% block menu_min %}
+        <nav class="top-bar animate-dropdown">
+            <div class="container">
+                <div class="col-xs-12 col-sm-6 no-margin">
+                    <ul id="navigation">
+                        {% for item in navigation %}
+                            <li><a href="{{ item.href }}">{{ item.title }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="col-xs-12 col-sm-6 no-margin">
+                    <ul class="right">
+                        <li class="dropdown" id="languge_dropdown">
+                            <a class="dropdown-toggle"  data-toggle="dropdown" href="#change-language">Русский</a>
+                            <ul class="dropdown-menu" role="menu" >
+                                {% for language in languages %}
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">{{ language.title }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                        {% if auth.status == true %}
+                            <li><a href="auth">Ваш Аккаунт {{ auth.name }}</a></li>
+                        {% else %}
+                            <li><a href="auth">Регистрация</a></li>
+                            <li><a href="auth">Логин</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    {% endblock %}
+
+    {% block content %}{% endblock %}
+
+    {% block footer %}
+        &copy; Copyright {{ current.year }} by <a href="/">{{ site.name }}</a>
+    {% endblock %}
+
+</body>
+</html>

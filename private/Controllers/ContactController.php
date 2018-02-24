@@ -12,7 +12,7 @@ use MyNewProject\MySiteOnClasses\Plugins\DataValidator as Validate;
 
 class ContactController extends AppController
 {
-    public $page_view = 'contact.twig';
+    public $page_view = "/templates/contacts.twig";
     public $template_source = 'template.php';
     protected $data = [
         'name' => 'Gleb',
@@ -26,8 +26,6 @@ class ContactController extends AppController
     function index(Request $request)
     {
         $hello = $request->getUserInfo();
-        var_dump($hello);
-        echo 'hello';
         $this->twig($this->page_view,$this->data);
         return new Response('',200);
     }
