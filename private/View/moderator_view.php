@@ -2,11 +2,9 @@
 <main id="account" class="account-private">
     <div class="container">
         <div class="row">
-            <div class="account-image">
 
-            </div>
             <ul class="account-nav-main col-xs-3">
-                <li><img class="img-thumbnail" src="/users_data/users_photo/default.png"></li>
+                <img class="img-thumbnail" style="display: inline-block" src="/users_data/users_photo/default.png">
                 <li class="account-nav" id="main"><i class="fa fa-user" style="padding-right: 5px"></i><p class="acc-list">Мой Аккаунт</p><p class="account-notification"><i class="fa fa-exclamation" aria-hidden="true"></i></p></li>
                 <li class="account-nav" id="tickets"><i class="fa fa-comment-o" aria-hidden="true"></i><p class="acc-list">Обращения</p><p class="account-message-count"><? echo $messages_count=3 ?></p></li>
                 <li class="account-nav" id="orders"><i class="fa fa-sort" style="padding-right: 4px; padding-left: 3px" aria-hidden="true"></i><p class="acc-list">Заказы в ожидании</p></li>
@@ -34,6 +32,7 @@
                                     <label for="exampleInputFile">Новое фото</label>
                                     <input type="file" id="exampleInputFile">
                                     <p class="help-block">Загрузите новую фотографию Вашего профиля.</p>
+                                    <div id="dropZone">Или перетащите в это окошко</div>
                                 </div>
                                 <button type="submit" class="btn btn-default">Отправить</button>
                             </form>
@@ -50,8 +49,8 @@
                             <th scope="col"><a href="#">Редактировать</a></th>
                         </tr>
                         </thead>
-                        <tbody>
-                        <tr id="news_list">
+                        <tbody id="news_list">
+                        <tr>
                             <th scope="row">1</th>
                             <td>Mark</td>
                             <td>Otto</td>

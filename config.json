@@ -30,7 +30,11 @@
       "path":"/loginvk",
       "controller":"\\MyNewProject\\MySiteOnClasses\\Controllers\\AuthController::authFromVK"
     },
-    "ModeratorCoontroller":{
+    "FileUp":{
+      "path":"/account/file-upload",
+      "controller":"\\MyNewProject\\MySiteOnClasses\\Plugins\\FileLoader::fileup"
+    },
+    "ModeratorController":{
       "path":"/moderator-account",
       "controller":"\\MyNewProject\\MySiteOnClasses\\Controllers\\ManagerAccountController::index"
     },
@@ -41,6 +45,10 @@
     "ModeratorGetUsers":{
       "path":"/moderator-account/get/users",
       "controller":"\\MyNewProject\\MySiteOnClasses\\Controllers\\ManagerAccountController::getUsers"
+    },
+    "ContactController":{
+      "path":"/contacts",
+      "controller":"\\MyNewProject\\MySiteOnClasses\\Controllers\\ContactController::index"
     }
   }
 }

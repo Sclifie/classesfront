@@ -1,27 +1,34 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Sclif
- * Date: 06.02.2018
- * Time: 14:23
- */
 
 namespace MyNewProject\MySiteOnClasses\Controllers;
 
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Web\Engine\Controller as AppController;
+use MyNewProject\MySiteOnClasses\Model\ModelAuth as Model;
+use MyNewProject\MySiteOnClasses\Plugins\DataValidator as Validate;
 
-class ContactController extends Controller
+
+class ContactController extends AppController
 {
-    public $page_title = 'Контакты';
-    public $page_descrition = 'очень дескриптион 2';
-    public $page_view = '../private/View/contact_view.php';
-    public $template_source = '../private/View/template.php';
-    protected $page_data;
+    public $page_view = 'contact.twig';
+    public $template_source = 'template.php';
+    protected $data = [
+        'name' => 'Gleb',
+        'age' => '29'
+    ];
+    private $model;
     function __construct()
     {
-        parent::__construct($this->page_title,$this->page_descrition,$this->page_view,$this->template_source);
+        $this->model = new Model();
     }
-    protected function start()
+    function index(Request $request)
     {
-
+        $hello = $request->getUserInfo();
+        var_dump($hello);
+        echo 'hello';
+        $this->twig($this->page_view,$this->data);
+        return new Response('',200);
     }
 }
