@@ -16,6 +16,7 @@
         <script src="/assets/js/auth_users.js"></script>
         <script src="/assets/js/reg_users.js"></script>
         <script src="/assets/js/myscripts/account_tabs.js"></script>
+        <script src="/assets/js/myscripts/collapse.js"></script>
 		<!-- Favicon -->
         <link rel="shortcut icon" href="/assets/images/favicon.ico">
         <link rel="stylesheet" href="/assets/css/font-awesome.min.css">

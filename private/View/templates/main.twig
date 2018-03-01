@@ -21,8 +21,12 @@
         <script src="/assets/js/myscripts/vkauth.js"></script>
         <script src="/assets/js/myscripts/account_tabs.js"></script>
         <script src="/assets/js/myscripts/filedownload.js"></script>
+        <script src="/assets/js/myscripts/collapse.js"></script>
         {#{% endspaceless %}#}
-    <title>{% block title %}{% endblock %} - Мой Милый сайт</title>
+        {% endblock %}
+        {% block title %}
+    <title>{{ vars.page_title }} - Мой Милый сайт</title>
+        {% endblock %}
 </head>
 <body>
     {% block menu_min %}
@@ -30,8 +34,8 @@
             <div class="container">
                 <div class="col-xs-12 col-sm-6 no-margin">
                     <ul id="navigation">
-                        {% for item in navigation %}
-                            <li><a href="{{ item.href }}">{{ item.title }}</a></li>
+                        {% for items in navigation %}
+                            <li><a href="{{ items.nav_href }}">{{ items.nav_title }}</a></li>
                         {% endfor %}
                     </ul>
                 </div>
@@ -46,7 +50,7 @@
                             </ul>
                         </li>
                         {% if auth.status == true %}
-                            <li><a href="auth">Ваш Аккаунт {{ auth.name }}</a></li>
+                            <li><a href="/moderator">Ваш Аккаунт {{ auth.name }}</a></li>
                         {% else %}
                             <li><a href="auth">Регистрация</a></li>
                             <li><a href="auth">Логин</a></li>
@@ -56,12 +60,19 @@
             </div>
         </nav>
     {% endblock %}
+    {% block main_slider %}
+        {#slider#}
+    {% endblock %}
+    {% block content %}
 
-    {% block content %}{% endblock %}
-
-    {% block footer %}
-        &copy; Copyright {{ current.year }} by <a href="/">{{ site.name }}</a>
     {% endblock %}
 
+    {% block footer %}
+        {% include 'footer.twig' %}
+    {% endblock %}
+    {% block footer_min %}
+        {% include 'footer_min.twig' %}
+        &copy; Copyright {{ current.year }} by <a href="/">{{ site.name }}</a>
+    {% endblock %}
 </body>
 </html>

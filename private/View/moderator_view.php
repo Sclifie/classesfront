@@ -3,7 +3,7 @@
     <div class="container">
         <div class="row">
 
-            <ul class="account-nav-main col-xs-3">
+            <ul class="account-nav-main col-xs-3" id="nav_main">
                 <img class="img-thumbnail" style="display: inline-block" src="/users_data/users_photo/default.png">
                 <li class="account-nav" id="main"><i class="fa fa-user" style="padding-right: 5px"></i><p class="acc-list">Мой Аккаунт</p><p class="account-notification"><i class="fa fa-exclamation" aria-hidden="true"></i></p></li>
                 <li class="account-nav" id="tickets"><i class="fa fa-comment-o" aria-hidden="true"></i><p class="acc-list">Обращения</p><p class="account-message-count"><? echo $messages_count=3 ?></p></li>
@@ -15,8 +15,8 @@
 
             <div class="user-messages col-xs-9" id="account-info">
                 <div class="panel panel-default col account-main-info">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Ваш Аккаунт GLEB KOLESNIKOV</h3>
+                    <div class="panel-heading"><i class="fa fa-arrow-left line pointer" aria-hidden="true" id="left-collapse"></i><i class="fa fa-arrow-right none line" aria-hidden="true"></i>
+                        <h3 class="panel-title line">Ваш Аккаунт GLEB KOLESNIKOV</h3>
                     </div>
                         <div class="panel-body">
                             <form role="form">

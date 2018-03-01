@@ -1,5 +1,9 @@
-{{ dump('hello') }}
-{% extends "/main.twig" %}
+{% extends "main.twig" %}
 {% block content %}
-    {{ name }}, you are {{ age }} years old
+
+    {{ vars.name }}, you are {{ vars.age }} years old
+    {#{{ dump(navigations: 2: 'nav_title') }}#}
 {% endblock %}
+{% block footer %}
+{% endblock %}
+

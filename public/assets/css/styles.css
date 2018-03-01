@@ -128,3 +128,20 @@ label.error{
     background: #afa;
     border-color: #0f0;
 }
+
+.line {
+    display: inline-block;
+}
+.none{
+    display: none;
+}
+.pointer{
+    cursor: pointer;
+}
+.pointer:hover{
+    color: cornflowerblue;
+}
+.hidden-menu{
+    display: inline-block;
+    transition: ;
+}

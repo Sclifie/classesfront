@@ -1,4 +1,4 @@
-{% extends "../index.html.twig" %}
+{% extends "../main.twig" %}
 {% block content %}
 <main id="account" class="account-private">
     <div class="container">
@@ -12,7 +12,6 @@
                     {% for tab in account.role.tabs %}
                     <li class="account-nav" id="{{ tab.id }}"><i class="fa fa-first-order" aria-hidden="true" style="padding-right: 2px"></i><p class="acc-list">{{ tab.name }}</p></li>
                     {% endfor %}
-
             </ul>
             <div class="users-info col-xs-9">
 
@@ -88,3 +87,4 @@
 </main><!-- /.authentication -->
 {% endblock %}
 {% block footer %}
+{% endblock %}

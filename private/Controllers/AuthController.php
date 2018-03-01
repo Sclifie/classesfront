@@ -38,24 +38,25 @@ class AuthController extends AppController
         'email' => 4194304,
         'market' => 134217728
     ];
-    public $page_view = 'auth_view.php';
+    public $page_view = 'pages/authpage.twig';
     public $template_source = 'template.php';
-    protected $data = [
-        'title' => 'Авторизация',
-        'vk_link' => null
+    protected $data = ['vars' =>[
+        'page_title' => 'Авторизация',
+        'vk_link' => null],
     ];
     private $model; //TODO:plugin/VKauth
     function __construct(){
         $this->data['vk_link'] = "https://oauth.vk.com/authorize?client_id=". self::CLIENT_ID . "&display=page&redirect_uri=" . self::REDIRECT_URI . "&scope=" . $this->scope_list['email'] . "&response_type=code&v=5.52";
-        $this->model = new Model();
+//        $this->model = new Model();
+        parent::__construct($this->data);
     }
 
-    function index(Request $request)
+    final function index()
     {
-        $hi = $request->getUserInfo();
-        var_dump($hi);
-        $page = $this->generateResponse($this->page_view,$this->template_source,$this->data);
-        return $page;
+        parent::index(Request::create('/auth'));
+//        $hi = $request->getUserInfo();
+//        $this->twig($this->page_view,$this->data);
+//        return new Response('',200);
     }
     function authFromVk(){ //TODO:model->getSettings
         $this->scope_list =
